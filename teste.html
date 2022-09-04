@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>teste.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="introdu%C3%A7%C3%A3o-ao-git">Introdução ao Git</h1>
+<h2 id="entenda-a-import%C3%A2ncia-do-git">Entenda a importância do Git</h2>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Git">Git</a> foi criado por Linus Torvalds também inventor do Kernel Linux.</p>
+</blockquote>
+<ul>
+<li>
+<p>Video do Linus em palestra na Google</p>
+<p><a href="https://www.youtube.com/watch?v=vKRZKau-8MY">https://www.youtube.com/watch?v=vKRZKau-8MY</a></p>
+</li>
+</ul>
+<hr>
+<h2 id="navega%C3%A7%C3%A3o-via-command-line-interface-e-instala%C3%A7%C3%A3o">Navegação via command line interface e instalação</h2>
+<p>Documentação do Git:</p>
+<p><a href="https://git-scm.com/doc">Documentation</a></p>
+<p>Instalador do GitHub desktop</p>
+<p><a href="https://desktop.github.com/">GitHub Desktop</a></p>
+<h3 id="cli-vs-gui">Cli vs Gui</h3>
+<p>CLI</p>
+<p>Command line interface → interação por linha de comando (terminal)</p>
+<p>Ex: Git</p>
+<p>Gui</p>
+<p>Graphic user interface → Interação por interface gráfica</p>
+<p>Ex: GitHub</p>
+<h3 id="comandos-b%C3%A1sicos-de-terminal-windows-shell-vs-unix-bash">Comandos básicos de terminal (Windows shell  vs Unix bash)</h3>
+<aside>
+💡 OBS: A partir do windows 10 temos o PowerShell, que acaba sendo um hibrido e roda ambos os comandos (tanto de shell quanto de bash)
+</aside>
+<p>Para listar diretórios</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># No shell faremos </span>
+dir 
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># No bash faremos </span>
+ls
+</div></code></pre>
+<p>Para mudar de diretórios (Comando igual para todos os terminais)</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Em ambos os casos vamos usar o comando:</span>
+cd 
+
+<span class="hljs-comment"># O  cd pode subir um nivel</span>
+cd /
+
+<span class="hljs-comment">#o cd pode ir para uma pasta especifica</span>
+cd nome_da_pasta_que_quero_ir
+
+<span class="hljs-comment">#Para retroceder um nivel vamos usar</span>
+cd ..
+</div></code></pre>
+<p>Para limpar o terminal</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># No Shell vamos fazer :</span>
+cls
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># No Bash vamos fazer :</span>
+clear 
+
+<span class="hljs-comment"># OBS: No bash temos o atalho"control + l" para limpar.</span>
+</div></code></pre>
+<p>Para criar uma pasta (Comando igual para ambos os terminais)</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Em ambos vamos fazer:</span>
+mkdir nome_da_pasta_que_queremos_criar
+</div></code></pre>
+<p>Para criar um arquivo de texto simples</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># No shell vamos fazer :</span>
+<span class="hljs-built_in">echo</span> hello &gt; hello.txt
+
+<span class="hljs-comment">#OBS</span>
+<span class="hljs-comment"># Aqui fizemos um truque ja que o "echo" mostra texto no terminal O "&gt;" pegaa saida e</span>
+<span class="hljs-comment"># Usamos a saida paracriar um novo txt </span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># No bash faremos :</span>
+touch hello.txt
+
+<span class="hljs-comment">#ou</span>
+<span class="hljs-built_in">echo</span> hello &gt; hello.txt
+</div></code></pre>
+<p>Para deletar arquivos</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Para deletar arquivos (Não vai funcionar em diretórios)</span>
+del nome_do_arquivo
+
+<span class="hljs-comment"># Para remover diretórios vazios:</span>
+rmdir nome_da_pasta
+
+<span class="hljs-comment"># Para remover diretórios com tudo que tem dentro dele:</span>
+rmdir nome_da_pasta /s /q
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># No bash faremos (Não funciona em diretórios) :</span>
+rm nome_do_arquivo
+
+<span class="hljs-comment"># Ou pararemoção forçada (Não funciona em diretórios)  :</span>
+rm -f nome_do_arquivo
+
+<span class="hljs-comment"># Para deletar diretórios com tudo que tem dentro dele</span>
+rm -rf nome_da_pasta
+</div></code></pre>
+<aside>
+💡 Lembrando :
+<p>Se ao executar um comando o terminal não der retorno (erro) a instrução foi feita. Podemos chamar de “Silence on success”.</p>
+</aside>
+<hr>
+<h2 id="entendendo-como-o-git-funciona">Entendendo como o Git funciona</h2>
+<p>Sha1 (<a href="https://en.wikipedia.org/wiki/SHA-1">Secure hash algorithm</a>)</p>
+<ul>
+<li>Se trata de um algoritmo de encriptação. Esse conjunto criptográfico foi criado pela NSA (agencia de segurança nacional americana).</li>
+<li>A encriptação gera um conjunto identificador de 40 dígitos.</li>
+</ul>
+<h3 id="encriptando-arquivo-com-sha1">Encriptando arquivo com SHA1</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Vamos abrir o git bash na pasta onde esta o arquivo de texto e fazer:</span>
+openssl sha1 nome_do_arquivo_de_texto
+
+<span class="hljs-comment">#Obs</span>
+<span class="hljs-comment">#Após a execução do comando o terminal irá retornar a chave criptografica do arquivo.</span>
+<span class="hljs-comment">#Essa chave será modificada cada vez que o arquivo sofrer alguma modificação.</span>
+</div></code></pre>
+<aside>
+💡 **OBS**: Essa é a forma que o Git usa para verificar se um arquivo foi modificado.
+</aside>
+<hr>
+<h3 id="objetos-internos-do-git">Objetos internos do Git</h3>
+<p>Organizando</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c1ba56b0-a127-41c0-b8a9-15b7c95f6470/1.jpg" alt="1.jpg"></p>
+<p>Blob</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ca4ce755-e00a-41d3-94e4-8c4e923ec561/blob.jpg" alt="blob.jpg"></p>
+<p>Trees</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a49398e2-9a46-4c96-bd4d-e2f8aad25e22/trees.jpg" alt="trees.jpg"></p>
+<p>Commits</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7745e29c-eae6-4d7d-803a-5c79e9695ab8/commit.jpg" alt="commit.jpg"></p>
+<p>Fluxo do git</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/01b41ce7-1508-4b74-9ac9-ed52803b5772/1.jpg" alt="1.jpg"></p>
+<hr>
+<h2 id="chaves-ssh-e-token">Chaves SSH e token</h2>
+<p>Chave SSH</p>
+<p>Forma de estabelecer uma conexão segura entre 2 máquinas.</p>
+<h3 id="como-gerar-chave-ssh-no-meu-pc-para-usar-no-github--reps-privados">Como gerar chave SSH no meu pc para usar no GitHub ? (Reps privados)</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Gerando a chave com a criptografia correta (Lembrando de por o mesmo e-mail do github).</span>
+<span class="hljs-comment"># Depois de fazer o comando vamos dar um "enter" e por a senha para nossa segurança</span>
+ssh-keygen -t ed25519 -C <span class="hljs-string">"seu_email_aqui"</span> 
+
+<span class="hljs-comment"># A chave que usaremos no GitHub é a publica, e pode ser acessada indo para o diretório que salvamos</span>
+<span class="hljs-comment"># Vamos navegar até o diretório padrão com o comando: </span>
+<span class="hljs-built_in">cd</span> diretório_onde_esta_a_chave
+
+<span class="hljs-comment"># Agora vamos abrir o conteúdo da chave para pegar os caracteres e por no Github.</span>
+<span class="hljs-comment"># Podemos usar o comando abaixo (Lembrando que vamos usar só a chave pública :</span>
+cat nome_do_arquivo.pub  
+
+<span class="hljs-comment"># Agora vamos habilitar o "agent alien", responsavel por lidar com as chaves de acesso.</span>
+<span class="hljs-comment"># Após digitar o comando abaixo, receberemos a informação do "agent pid" processo que rodará no pc </span>
+<span class="hljs-built_in">eval</span> $(ssh-agent -s)
+
+<span class="hljs-comment"># Agora vamos passar a chave privada para o agent usar (descriptografará a pública com ela)</span>
+<span class="hljs-comment"># Se estivermos dentro do diretório onde a chave esta só vamos passar o nome.</span>
+<span class="hljs-comment"># Se não estivermos no diretório onde ela esta, temos que navegar até ele</span>
+ssh-add nome_da_chave_privada <span class="hljs-comment">#Lembrando que ela não possui pub no final.</span>
+</div></code></pre>
+<aside>
+💡 OBS: Como configuramos a chave SSH, qualquer clonagem de repositório só poderá ser feita através do caminho SSH (Escolher na aba code do repositório WEB)
+</aside>
+<p>Documentação</p>
+<p><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent - GitHub Docs</a></p>
+<h3 id="como-gerar-token-reps-privados">Como gerar token (Reps privados)</h3>
+<p>Só ir no caminho abaixo logado na sua conta GitHub.</p>
+<p><a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a></p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/29c04616-1e12-4b51-ae6b-8232648c9fcb/1.jpg" alt="1.jpg"></p>
+<p>Documentação</p>
+<p><a href="https://docs.github.com/en/enterprise-server@3.3/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">Creating a personal access token - GitHub Enterprise Server 3.3 Docs</a></p>
+<aside>
+💡 **OBS**: Atualizara versão do git no windows
+<pre class="hljs"><code><div>git update-git-for-windows -y
+</div></code></pre>
+</aside>
+<hr>
+<h3 id="iniciando-o-git-e-criando-commit">Iniciando o Git e criando commit</h3>
+<p>Documentação de comandos git web</p>
+<p><a href="https://git-scm.com/docs/git">Git - git Documentation</a></p>
+<p>Comandos uteis de ajuda com o git</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Manual com todos os comandos do Git</span>
+man git 
+
+<span class="hljs-comment"># Comandos principais e suas funcionalidades de forma reduzida</span>
+git <span class="hljs-built_in">help</span>
+</div></code></pre>
+<p>Iniciar versionamento do código a partir de uma pasta.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">#Git criará uma pasta vazia com instruções de versionamento.</span>
+git init
+
+<span class="hljs-comment">#Para ver a pasta oculta do git vamos fazer</span>
+ls -a
+
+<span class="hljs-comment">#Para criar nossa primeira branch vamos fazer </span>
+git branch -M main
+
+<span class="hljs-comment">#Pra ver as branchs do repositório vamos usar:</span>
+git branch
+
+<span class="hljs-comment">#OBS:</span>
+<span class="hljs-comment"># Devemos nos certificar se temos uma branch no repositório</span>
+<span class="hljs-comment"># A ausencia de branch vai gerar erros no envio do código local p/ GitHub</span>
+</div></code></pre>
+<p>Configurar nick name e e-mail (Atrelar autoria ao código).</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Fazer configurações globais para email</span>
+git config --global user.email <span class="hljs-string">"seu_email_entre_aspas"</span>
+
+<span class="hljs-comment"># Para configurar o nome</span>
+git config --global user.name <span class="hljs-string">"seu_nome_entre_aspas"</span>
+
+<span class="hljs-comment"># Para ver as configurações</span>
+git config --list 
+
+<span class="hljs-comment"># Para remover alguma configuração para alterar futuramente vamos fazer:</span>
+git config --global --<span class="hljs-built_in">unset</span> configuração_que_queremos_apagar
+</div></code></pre>
+<p>Agora vamos criar um arquivo markdown na nossa pasta para testar o versionamento.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># O arquivo markdown é uma forma mais humanizada de escrever HTML</span>
+<span class="hljs-comment"># A extensão do arquivo é ".md"</span>
+touch strogonoff.md
+</div></code></pre>
+<p>Vamos editar nosso arquivo no nosso editor de texto</p>
+<ul>
+<li>
+<p>Emoji para markdown</p>
+<p><a href="https://gist.github.com/rxaviers/7360908">Complete list of github markdown emoji markup</a></p>
+</li>
+<li>
+<p>Formatações do markdown</p>
+<p><a href="https://www.markdownguide.org/">Markdown Guide</a></p>
+<p><a href="https://support.zendesk.com/hc/pt-br/articles/4408846544922-Formata%C3%A7%C3%A3o-de-texto-com-Markdown#topic_xqx_mvc_43__line_break">Formatação de texto com Markdown</a></p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-section">#Strogonoff de frango :chicken:</span>
+<span class="hljs-section">###ingredientes</span>
+<span class="hljs-bullet">* </span>1 Quilo de frango sem pele
+<span class="hljs-bullet">* </span>1 Tablete de caldo de galinha
+<span class="hljs-bullet">* </span>3 Colheres de sopa de óleo
+<span class="hljs-bullet">* </span>2 Latas de creme de leite sem soro
+<span class="hljs-bullet">* </span>2 Colheres de sopa de molho de tomate
+<span class="hljs-bullet">* </span>2 Colheres de sopa de ketchup
+<span class="hljs-bullet">* </span>2 Colheres de sopa de mostarda
+<span class="hljs-bullet">* </span>Champignon
+<span class="hljs-bullet">* </span>Batata palha e arroz branco para acompanhar
+
+<span class="hljs-section">###Modo de preparo</span>
+<span class="hljs-bullet">1. </span>Em uma panela de fogo médio, acrescente o óleo e o caldo de galinha e, 
+sissolva o caldo. Logoem seguida coloque ofrango picado emcubos na panela e deixe cozinhar, 
+sempre dando uma olhada pra não queimar.
+<span class="hljs-bullet">   
+2. </span>Assim que o frango estiver bem cozido, acrescente o molho de tomate, 
+o molho de tomate, oketchup, amostarda e o champignon a gosto.
+<span class="hljs-bullet">
+3. </span>Abaixe o fogo e coloque o creme de leite e mexa bem 
+até se tornar uma mistura homogênea.
+<span class="hljs-bullet">
+4. </span>Esta pronto para servir.
+
+&gt;Receitinha massa, familia ! Testei e deu bom aqui.
+</div></code></pre>
+<p>Agora vamos fazer o versionamento do nosso arquivo markdown com o Git</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Adicionando as modificações em staged</span>
+git add nome_do_arquivo 
+
+<span class="hljs-comment">#Ou, se quisermos versionar mais de um arquivo </span>
+git add *
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment"># Adicionando uma mensagem na modificação feita</span>
+git commit -m <span class="hljs-string">"mensagem_entre_aspas"</span>
+</div></code></pre>
+<hr>
+<h2 id="ciclo-de-vida-de-arquivos-no-git">Ciclo de vida de arquivos no Git</h2>
+<p>Git init</p>
+<p>Cria repositório dentro da pasta alvo.</p>
+<h3 id="esquema-de-ciclo-de-arquivos-do-git">Esquema de ciclo de arquivos do Git</h3>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b2586778-7f9c-4fb2-bcf3-87dc3b7701c7/1.jpg" alt="1.jpg"></p>
+<p>Untracked</p>
+<ul>
+<li>O Git não conhece o arquivo</li>
+</ul>
+<p>Staged (Quando rodamos o Git add)</p>
+<ul>
+<li>O arquivo espera para entrar no palco (analogia boa).</li>
+</ul>
+<p>Unmodified (Sha1 base)</p>
+<ul>
+<li>O arquivo ainda não sofreu modificações.</li>
+</ul>
+<p>Modified (O Sha1 sofreu modificações)</p>
+<ul>
+<li>O Git percebe novas inclusões no arquivo</li>
+<li>Um novo git add aqui vai jogar o arquivo para staged e espera o commit e retorna para unmodified.</li>
+</ul>
+<aside>
+💡 **Lembrando** :
+<p>Unmodified/ modified/ staged são os ciclos normais dos arquivos Git</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ad9bd287-af8d-46d4-b01b-72d820fb2a6d/1.jpg" alt="1.jpg"></p>
+</aside>
+<p>Para monitorar o arquivo e ver o estado atual dele vamos:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Comando importante para saber o que faremos a seguir com o arquivo.</span>
+git status
+</div></code></pre>
+<p>Agora vamos criar outra pasta e mover o nosso arquivo criado na aula anterior para dentro dela.</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Criando a pasta "receitas"</span>
+mkdir receitas
+
+<span class="hljs-comment"># Movendo o arquivo "strogonoff" para dentro da nova pasta</span>
+mv strogonoff ./receitas
+</div></code></pre>
+<p>Como movemos  o arquivo, veremos o status que o arquivo “strogonoff” foi deletado e que temos um  arquivo não trackeado, que é o diretório criado no passo anterior “receitas” (Como no print)</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/144dea64-1237-4149-b642-463981ed4566/Screenshot_1.jpg" alt="Screenshot_1.jpg"></p>
+<p>Vamos criar um novo snapshot dos nossos arquivos. Agora jogaremos as novas modificações para “Staged”</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Lembrando que vamos adicionar o arquivo e a nova pasta separando por espaço</span>
+git add strogonoff.md receitas/
+</div></code></pre>
+<p>O novo status ficará aguardando o commit :</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ab3ab7af-f6d6-4cfc-8fcb-8cff3d91cc46/Screenshot_2.jpg" alt="Screenshot_2.jpg"></p>
+<aside>
+💡 **OBS**: O Git também expõe que podemos remover as modificações “git add” com o comando :
+<pre class="hljs"><code><div><span class="hljs-comment">#Usando o comando de restore vamos voltar os arquivos para unstaged</span>
+git restore --staged nome_do_arquivo
+</div></code></pre>
+</aside>
+<p>Depois de por o arquivo em “staged” temos que comentar a mudança usando o “commit”</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Comentando as novas modificações</span>
+git commit -m <span class="hljs-string">"comentario_entre_aspas"</span>
+</div></code></pre>
+<p>Após o commit receberemos algo como:</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ea2480a9-6bb2-4adc-9a8e-43cc7077e70b/1.jpg" alt="1.jpg"></p>
+<p>Para visualizar os commits feitos vamos usar o :</p>
+<pre class="hljs"><code><div>git <span class="hljs-built_in">log</span> 
+</div></code></pre>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ccead44f-9c3a-4fcc-bd10-910dc2960563/2.jpg" alt="2.jpg"></p>
+<p>Aqui vamos ter 3 formas diferentes de reset:</p>
+<ol>
+<li>
+<p>Reset soft (Podemos fazer <strong>commit</strong> de novo).</p>
+<pre class="hljs"><code><div><span class="hljs-comment">#Volta po arquivo para fase de staged</span>
+git reset --soft  nome_do_commit_anterior
+</div></code></pre>
+</li>
+<li>
+<p>Reset mixed (Podemos fazer novo <strong>git add</strong>).</p>
+<pre class="hljs"><code><div><span class="hljs-comment">#Volta o arquivo para fase de modified</span>
+git reset --mixed  nome_do_commit_anterior
+
+<span class="hljs-comment">#Podemos fazer a diff da modificação com o conteúdo anterior </span>
+<span class="hljs-comment">#Antes de fazer o "git add"</span>
+</div></code></pre>
+</li>
+<li>
+<p>Reset hard (Desfaz tudo e volta ao estado do commit anterior).</p>
+<pre class="hljs"><code><div><span class="hljs-comment">#Vai desfazer qualquer mudança realizada desde o commit anterior.</span>
+git reset --hard  nome_do_commit_anterior
+</div></code></pre>
+</li>
+</ol>
+<p>Agora vamos criar um arquivo readme para por um atalho para nossas receitas futuramente</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Vamos criar o arquivo de outra forma</span>
+<span class="hljs-built_in">echo</span> &gt; README.md
+</div></code></pre>
+<p>Editando arquivo README.md</p>
+<pre class="hljs"><code><div><span class="hljs-section"># Livro de receitas :man_cook:</span>
+
+Saudações !!! Bem vindo ao livro das receitas, chefe(a) :v:.
+<span class="hljs-bullet">
+* </span>Strogonoff de frango
+</div></code></pre>
+<hr>
+<h2 id="trabalhando-com-github">Trabalhando com GitHub</h2>
+<p>Após criar o repositório no site do GitHub ou app vamos associar com o nosso repositório local</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Vamos por um "alias" (nome) nesse repositório. Por padrão é usado "origin".</span>
+git remote add origin link_http_do_repositório_dado_no_GitHub
+
+<span class="hljs-comment"># Para verificar se esta incluso vamos usar o comando:</span>
+git remote -v
+</div></code></pre>
+<p>Agora vamos enviar o nosso código do repositório local Git para o repositório do GitHub</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># No comando informaremos o repositório que vai receber e depois a branch que vamos enviar</span>
+git push origin main
+</div></code></pre>
+<hr>
+<h2 id="resolvendo-conflitos">Resolvendo conflitos</h2>
+<p>Para atualizar nosso repositório local comparando com o original</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Em caso de conflito, o git vai pedir para que fassamos um:</span>
+git push
+
+<span class="hljs-comment"># Após o push, ele irá marcar os arquivos em conflito. </span>
+<span class="hljs-comment"># Teremos que resolver esses conflitos e fazer um push, </span>
+<span class="hljs-comment"># que irá gerar outro commit informando o conclito no final.</span>
+</div></code></pre>
+<p>Diferença entre download do código e clonagem</p>
+<p>No download → Pegaremos o repositório e o código.</p>
+<p>No clone → Pegaremos o código com o versionador git dentro dele.</p>
+<pre class="hljs"><code><div>/bin/bash
+</div></code></pre>
+
+</body>
+</html>
